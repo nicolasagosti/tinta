@@ -15,7 +15,9 @@ export default async function PanelPage() {
   const [{ data: perfil, error }, estilosDisponibles] = await Promise.all([
     supabase
       .from("profiles")
-      .select("*, precios(tamano, desde, hasta), trabajos(id, titulo, estilo, imagen_url, orden)")
+      .select(
+        "*, precios(tamano, desde, hasta), trabajos(id, titulo, estilo, imagen_url, orden), promos(id, tipo, tamano, precio)"
+      )
       .eq("user_id", user.id)
       .maybeSingle(),
     getEstilosDisponibles(),

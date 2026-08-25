@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import type { Precio, Tamano } from "@/data/tatuadores";
+import type { Precio, Promo, Tamano } from "@/data/tatuadores";
 import { createClient } from "@/lib/supabase/client";
 import PerfilForm, { type DatosPerfil } from "./PerfilForm";
 import FotoPerfilUploader from "./FotoPerfilUploader";
 import EstilosEditor from "./EstilosEditor";
 import PreciosEditor from "./PreciosEditor";
+import PromosEditor from "./PromosEditor";
 import PortafolioManager, { type FotoPendiente } from "./PortafolioManager";
 
 export type TrabajoRow = {
@@ -35,6 +36,7 @@ export type PerfilCompleto = {
   contacto_web: string | null;
   precios: Precio[];
   trabajos: TrabajoRow[];
+  promos: Promo[];
 };
 
 const TAMANOS_ORDEN: Tamano[] = ["pequeno", "mediano", "grande", "sesion"];
@@ -86,6 +88,8 @@ export default function PanelCliente({
 
   const [trabajos, setTrabajos] = useState(perfil.trabajos);
   const [fotosNuevas, setFotosNuevas] = useState<FotoPendiente[]>([]);
+
+  const [promos, setPromos] = useState<Promo[]>(perfil.promos);
 
   const [guardando, setGuardando] = useState(false);
   const [mensaje, setMensaje] = useState<string | null>(null);
@@ -182,6 +186,32 @@ export default function PanelCliente({
     if (preciosError) {
       huboError = true;
       console.error("Error al guardar precios:", preciosError.message);
+    }
+
+    const { error: borrarPromosError } = await supabase
+      .from("promos")
+      .delete()
+      .eq("profile_id", perfil.id);
+    if (borrarPromosError) {
+      huboError = true;
+      console.error("Error al guardar promos:", borrarPromosError.message);
+    } else if (promos.length > 0) {
+      const filasPromos = promos.map((promo) => ({
+        profile_id: perfil.id,
+        tipo: promo.tipo,
+        tamano: promo.tamano,
+        precio: promo.precio,
+      }));
+      const { data: promosInsertadas, error: promosError } = await supabase
+        .from("promos")
+        .insert(filasPromos)
+        .select("id, tipo, tamano, precio");
+      if (promosError) {
+        huboError = true;
+        console.error("Error al guardar promos:", promosError.message);
+      } else if (promosInsertadas) {
+        setPromos(promosInsertadas as Promo[]);
+      }
     }
 
     if (fotosNuevas.length > 0) {
@@ -281,6 +311,13 @@ export default function PanelCliente({
             Precios por tamaño
           </h2>
           <PreciosEditor precios={precios} tamanos={TAMANOS_ORDEN} onChange={cambiarPrecio} />
+        </section>
+
+        <section>
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-tinta-300">
+            Promos
+          </h2>
+          <PromosEditor promos={promos} onChange={setPromos} />
         </section>
 
         <section>

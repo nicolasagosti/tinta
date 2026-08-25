@@ -31,6 +31,18 @@ export type Trabajo = {
   imagen: string;
 };
 
+export const TIPOS_PROMO = ["2x1", "3x1", "4x1"] as const;
+
+export type TipoPromo = (typeof TIPOS_PROMO)[number];
+
+export type Promo = {
+  id: string;
+  tipo: TipoPromo;
+  tamano: Tamano;
+  /** Precio total de la promo, en pesos argentinos. */
+  precio: number;
+};
+
 export type Tatuador = {
   slug: string;
   nombre: string;
@@ -47,5 +59,6 @@ export type Tatuador = {
     web?: string;
   };
   precios: Precio[];
+  promos: Promo[];
   trabajos: Trabajo[];
 };

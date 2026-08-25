@@ -99,6 +99,25 @@ export default async function PerfilTatuador({ params }: Props) {
           <p className="mt-2 text-xs text-tinta-500">
             Valores de referencia. El precio final depende del diseño, la zona y el detalle.
           </p>
+
+          {tatuador.promos.length > 0 && (
+            <>
+              <h2 className="mb-3 mt-10 text-lg font-semibold">Promos</h2>
+              <div className="flex flex-wrap gap-3">
+                {tatuador.promos.map((promo) => (
+                  <div
+                    key={promo.id}
+                    className="rounded-xl border border-acento/40 bg-acento/10 px-4 py-3"
+                  >
+                    <p className="font-semibold text-acento-suave">
+                      {promo.tipo} en {ETIQUETA_TAMANO[promo.tamano].toLowerCase()}
+                    </p>
+                    <p className="text-sm text-tinta-300">{formatearPrecio(promo.precio)}</p>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </section>
 
         <aside className="lg:sticky lg:top-24 lg:self-start">

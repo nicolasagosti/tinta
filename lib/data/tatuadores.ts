@@ -1,8 +1,9 @@
 import { createPublicClient } from "@/lib/supabase/public";
-import type { Precio, Tatuador, Trabajo } from "@/data/tatuadores";
+import type { Precio, Promo, Tatuador, Trabajo } from "@/data/tatuadores";
 
 type PrecioRow = { tamano: Precio["tamano"]; desde: number; hasta: number };
 type TrabajoRow = { id: string; titulo: string; estilo: string; imagen_url: string; orden: number };
+type PromoRow = { id: string; tipo: Promo["tipo"]; tamano: Promo["tamano"]; precio: number };
 type ProfileRow = {
   slug: string;
   nombre: string;
@@ -18,9 +19,11 @@ type ProfileRow = {
   contacto_web: string | null;
   precios: PrecioRow[];
   trabajos: TrabajoRow[];
+  promos: PromoRow[];
 };
 
-const SELECT = "*, precios(tamano, desde, hasta), trabajos(id, titulo, estilo, imagen_url, orden)";
+const SELECT =
+  "*, precios(tamano, desde, hasta), trabajos(id, titulo, estilo, imagen_url, orden), promos(id, tipo, tamano, precio)";
 
 function mapRow(row: ProfileRow): Tatuador {
   return {
@@ -44,6 +47,7 @@ function mapRow(row: ProfileRow): Tatuador {
     trabajos: [...(row.trabajos ?? [])]
       .sort((a, b) => a.orden - b.orden)
       .map((t): Trabajo => ({ id: t.id, titulo: t.titulo, estilo: t.estilo, imagen: t.imagen_url })),
+    promos: row.promos ?? [],
   };
 }
 
