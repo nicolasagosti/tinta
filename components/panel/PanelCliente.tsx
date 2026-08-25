@@ -145,6 +145,7 @@ export default function PanelCliente({
         .upload(path, fotoPerfilFile, { upsert: true });
       if (subidaError) {
         huboError = true;
+        console.error("Error al subir foto de perfil:", subidaError.message);
       } else {
         const { data: publica } = supabase.storage.from("perfil-fotos").getPublicUrl(path);
         fotoUrl = publica.publicUrl;
@@ -164,7 +165,10 @@ export default function PanelCliente({
         foto_url: fotoUrl,
       })
       .eq("id", perfil.id);
-    if (perfilError) huboError = true;
+    if (perfilError) {
+      huboError = true;
+      console.error("Error al guardar el perfil:", perfilError.message);
+    }
 
     const filasPrecios = TAMANOS_ORDEN.map((tamano) => ({
       profile_id: perfil.id,
@@ -175,7 +179,10 @@ export default function PanelCliente({
     const { error: preciosError } = await supabase
       .from("precios")
       .upsert(filasPrecios, { onConflict: "profile_id,tamano" });
-    if (preciosError) huboError = true;
+    if (preciosError) {
+      huboError = true;
+      console.error("Error al guardar precios:", preciosError.message);
+    }
 
     if (fotosNuevas.length > 0) {
       const resultados = await Promise.all(
@@ -185,7 +192,10 @@ export default function PanelCliente({
           const { error: subidaError } = await supabase.storage
             .from("trabajos-fotos")
             .upload(path, foto.file);
-          if (subidaError) return null;
+          if (subidaError) {
+            console.error("Error al subir foto de trabajo:", subidaError.message);
+            return null;
+          }
 
           const { data: publica } = supabase.storage.from("trabajos-fotos").getPublicUrl(path);
           const { data: fila } = await supabase
