@@ -39,7 +39,9 @@ export default function TarjetaTatuador({ tatuador, tamano }: Props) {
           />
           <div className="min-w-0">
             <h2 className="truncate font-semibold">{tatuador.nombre}</h2>
-            <p className="truncate text-sm text-tinta-500">{tatuador.ciudad}</p>
+            <p className="truncate text-sm text-tinta-500">
+              {tatuador.barrio ? `${tatuador.barrio}, ${tatuador.ciudad}` : tatuador.ciudad}
+            </p>
           </div>
         </div>
 

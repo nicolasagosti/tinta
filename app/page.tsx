@@ -1,12 +1,12 @@
 import Directorio from "@/components/Directorio";
-import { getCiudadesDisponibles, getEstilosDisponibles, getTatuadores } from "@/lib/data/tatuadores";
+import { getCiudadesDisponibles, getEstilosSugeridos, getTatuadores } from "@/lib/data/tatuadores";
 
 export const revalidate = 60;
 
 export default async function Home() {
   const [tatuadores, estilosDisponibles, ciudadesDisponibles] = await Promise.all([
     getTatuadores(),
-    getEstilosDisponibles(),
+    getEstilosSugeridos(),
     getCiudadesDisponibles(),
   ]);
 

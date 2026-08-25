@@ -49,7 +49,9 @@ export default async function PerfilTatuador({ params }: Props) {
         />
         <div>
           <h1 className="text-3xl font-bold tracking-tight">{tatuador.nombre}</h1>
-          <p className="mt-1 text-tinta-300">{tatuador.ciudad}</p>
+          <p className="mt-1 text-tinta-300">
+            {tatuador.barrio ? `${tatuador.barrio}, ${tatuador.ciudad}` : tatuador.ciudad}
+          </p>
           <div className="mt-3 flex flex-wrap gap-1.5">
             {tatuador.estilos.map((estilo) => (
               <span

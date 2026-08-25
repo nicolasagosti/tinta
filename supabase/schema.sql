@@ -12,6 +12,7 @@ create table if not exists public.profiles (
   slug                text unique not null,
   nombre              text not null default '',
   ciudad              text not null default '',
+  barrio              text,
   estudio             text not null default '',
   bio                 text not null default '',
   foto_url            text,

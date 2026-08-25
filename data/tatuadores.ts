@@ -31,6 +31,27 @@ export type Trabajo = {
   imagen: string;
 };
 
+/** Estilos de tatuaje más buscados: sirven de filtro/sugerencia aunque todavía no haya
+ * ningún tatuador cargado con ese estilo. */
+export const ESTILOS_CONOCIDOS = [
+  "Realismo",
+  "Blackwork",
+  "Old School",
+  "Neotradicional",
+  "Fineline",
+  "Japonés",
+  "Acuarela",
+  "Geométrico",
+  "Tribal",
+  "Anime",
+  "Lettering",
+  "Minimalista",
+  "Puntillismo",
+  "Chicano",
+  "Trash Polka",
+  "Ornamental",
+] as const;
+
 export const TIPOS_PROMO = ["2x1", "3x1", "4x1"] as const;
 
 export type TipoPromo = (typeof TIPOS_PROMO)[number];
@@ -47,6 +68,7 @@ export type Tatuador = {
   slug: string;
   nombre: string;
   ciudad: string;
+  barrio: string;
   estudio: string;
   bio: string;
   foto: string;

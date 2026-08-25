@@ -64,7 +64,13 @@ export function topePrecio(tatuadores: Tatuador[], tamano: Tamano | "todos"): nu
 function coincideTexto(tatuador: Tatuador, texto: string): boolean {
   const q = normalizar(texto);
   if (!q) return true;
-  const campos = [tatuador.nombre, tatuador.ciudad, ...tatuador.estilos];
+  const campos = [
+    tatuador.nombre,
+    tatuador.ciudad,
+    tatuador.barrio,
+    ...tatuador.estilos,
+    ...tatuador.promos.map((p) => p.tipo),
+  ];
   return campos.some((campo) => normalizar(campo).includes(q));
 }
 

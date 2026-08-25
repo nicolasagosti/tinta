@@ -25,6 +25,7 @@ export type PerfilCompleto = {
   slug: string;
   nombre: string;
   ciudad: string;
+  barrio: string | null;
   estudio: string;
   bio: string;
   foto_url: string | null;
@@ -54,6 +55,7 @@ export default function PanelCliente({
   const [form, setForm] = useState<DatosPerfil>({
     nombre: perfil.nombre,
     ciudad: perfil.ciudad,
+    barrio: perfil.barrio ?? "",
     contacto_instagram: perfil.contacto_instagram ?? "",
     contacto_whatsapp: perfil.contacto_whatsapp ?? "",
     contacto_email: perfil.contacto_email ?? "",
@@ -161,6 +163,7 @@ export default function PanelCliente({
       .update({
         nombre: form.nombre,
         ciudad: form.ciudad,
+        barrio: form.barrio || null,
         contacto_instagram: form.contacto_instagram || null,
         contacto_whatsapp: form.contacto_whatsapp || null,
         contacto_email: form.contacto_email || null,

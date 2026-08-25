@@ -1,5 +1,5 @@
 import { createPublicClient } from "@/lib/supabase/public";
-import type { Precio, Promo, Tatuador, Trabajo } from "@/data/tatuadores";
+import { ESTILOS_CONOCIDOS, type Precio, type Promo, type Tatuador, type Trabajo } from "@/data/tatuadores";
 
 type PrecioRow = { tamano: Precio["tamano"]; desde: number; hasta: number };
 type TrabajoRow = { id: string; titulo: string; estilo: string; imagen_url: string; orden: number };
@@ -8,6 +8,7 @@ type ProfileRow = {
   slug: string;
   nombre: string;
   ciudad: string;
+  barrio: string | null;
   estudio: string;
   bio: string;
   foto_url: string | null;
@@ -30,6 +31,7 @@ function mapRow(row: ProfileRow): Tatuador {
     slug: row.slug,
     nombre: row.nombre,
     ciudad: row.ciudad,
+    barrio: row.barrio ?? "",
     estudio: row.estudio,
     bio: row.bio,
     foto: row.foto_url ?? "",
@@ -77,6 +79,13 @@ export async function getEstilosDisponibles(): Promise<string[]> {
   return Array.from(new Set(tatuadores.flatMap((t) => t.estilos))).sort((a, b) =>
     a.localeCompare(b, "es")
   );
+}
+
+/** Lista de estilos para filtros/sugerencias: los más conocidos primero, más los que
+ * ya haya cargado algún tatuador y no estén en esa lista. */
+export async function getEstilosSugeridos(): Promise<string[]> {
+  const disponibles = await getEstilosDisponibles();
+  return Array.from(new Set([...ESTILOS_CONOCIDOS, ...disponibles]));
 }
 
 export async function getCiudadesDisponibles(): Promise<string[]> {

@@ -92,7 +92,7 @@ export default function Directorio({ tatuadores, estilos, ciudades }: Props) {
             type="search"
             value={filtros.texto}
             onChange={(e) => setFiltros((f) => ({ ...f, texto: e.target.value }))}
-            placeholder="Buscá por nombre, estilo (realismo, fineline…) o ciudad"
+            placeholder="Buscá por nombre, estilo, ciudad, barrio o promo (2x1, 3x1…)"
             className="w-full rounded-xl border border-tinta-800 bg-tinta-900 py-3 pl-10 pr-4 text-tinta-100 placeholder:text-tinta-500 focus:border-acento focus:outline-none"
           />
         </div>

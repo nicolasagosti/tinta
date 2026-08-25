@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
-import { getEstilosDisponibles } from "@/lib/data/tatuadores";
+import { getEstilosSugeridos } from "@/lib/data/tatuadores";
 import PanelCliente, { type PerfilCompleto } from "@/components/panel/PanelCliente";
 
 const SELECT_PERFIL =
@@ -63,7 +63,7 @@ export default async function PanelPage() {
 
   const [{ data: perfilInicial, error: errorInicial }, estilosDisponibles] = await Promise.all([
     supabase.from("profiles").select(SELECT_PERFIL).eq("user_id", user.id).maybeSingle(),
-    getEstilosDisponibles(),
+    getEstilosSugeridos(),
   ]);
 
   let perfil = perfilInicial;

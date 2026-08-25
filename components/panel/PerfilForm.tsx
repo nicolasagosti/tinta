@@ -5,6 +5,7 @@ import UbicacionInput from "./UbicacionInput";
 export type DatosPerfil = {
   nombre: string;
   ciudad: string;
+  barrio: string;
   contacto_instagram: string;
   contacto_whatsapp: string;
   contacto_email: string;
@@ -35,6 +36,15 @@ export default function PerfilForm({
         <label className="block text-sm">
           <span className="mb-1 block text-tinta-300">Ubicación</span>
           <UbicacionInput value={form.ciudad} onChange={(valor) => onChange("ciudad", valor)} />
+        </label>
+        <label className="block text-sm">
+          <span className="mb-1 block text-tinta-300">Barrio</span>
+          <input
+            className={campoClase}
+            placeholder="Palermo, Nueva Córdoba…"
+            value={form.barrio}
+            onChange={(e) => onChange("barrio", e.target.value)}
+          />
         </label>
       </div>
 
