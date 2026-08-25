@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  --color-tinta-950: #0a0a0b;
+  --color-tinta-900: #111113;
+  --color-tinta-800: #1a1a1d;
+  --color-tinta-700: #26262b;
+  --color-tinta-500: #6b6b75;
+  --color-tinta-300: #b4b4bd;
+  --color-tinta-100: #ececef;
+  --color-acento: #e0543a;
+  --color-acento-suave: #f5a08d;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-tinta-950);
+  color: var(--color-tinta-100);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: var(--color-acento);
+  color: #fff;
+}
+
+/* Slider de precio */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--color-tinta-700);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -6px;
+  height: 16px;
+  width: 16px;
+  border-radius: 999px;
+  background: var(--color-acento);
+  border: 2px solid var(--color-tinta-950);
+}
+
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--color-tinta-700);
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  border: 2px solid var(--color-tinta-950);
+  border-radius: 999px;
+  background: var(--color-acento);
+}

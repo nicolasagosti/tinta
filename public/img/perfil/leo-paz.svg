@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="hsl(186 30% 26%)"/>
+      <stop offset="100%" stop-color="hsl(226 35% 12%)"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#g)"/>
+  <circle cx="200" cy="160" r="62" fill="hsl(186 18% 70%)" opacity="0.35"/>
+  <path d="M80 400c0-70 54-118 120-118s120 48 120 118z" fill="hsl(186 18% 70%)" opacity="0.35"/>
+  <text x="200" y="372" text-anchor="middle" font-family="Helvetica, Arial, sans-serif"
+        font-size="34" font-weight="700" fill="#fff" opacity="0.75">LP</text>
+</svg>
