@@ -31,6 +31,7 @@ export default function PreciosEditor({
                 <input
                   type="number"
                   min={0}
+                  step={1000}
                   placeholder="0"
                   value={precios[tamano].desde || ""}
                   onChange={(e) => onChange(tamano, "desde", e.target.value)}
@@ -41,6 +42,7 @@ export default function PreciosEditor({
                 <input
                   type="number"
                   min={0}
+                  step={1000}
                   placeholder="0"
                   value={precios[tamano].hasta || ""}
                   onChange={(e) => onChange(tamano, "hasta", e.target.value)}

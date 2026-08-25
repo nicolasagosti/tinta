@@ -10,9 +10,9 @@ export const ETIQUETA_TAMANO: Record<Tamano, string> = {
 };
 
 export const DETALLE_TAMANO: Record<Tamano, string> = {
-  pequeno: "Hasta 8 cm · 1 a 2 horas",
-  mediano: "8 a 15 cm · 2 a 4 horas",
-  grande: "Más de 15 cm · 4 a 6 horas",
+  pequeno: "Hasta 5 cm · 1 a 2 horas",
+  mediano: "5 a 10 cm · 2 a 4 horas",
+  grande: "10 a 20 cm · 4 a 6 horas",
   sesion: "Jornada completa · 6 a 8 horas",
 };
 
