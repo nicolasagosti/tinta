@@ -1,5 +1,7 @@
 "use client";
 
+import UbicacionInput from "./UbicacionInput";
+
 export type DatosPerfil = {
   nombre: string;
   ciudad: string;
@@ -32,12 +34,7 @@ export default function PerfilForm({
         </label>
         <label className="block text-sm">
           <span className="mb-1 block text-tinta-300">Ubicación</span>
-          <input
-            className={campoClase}
-            placeholder="Ciudad, provincia…"
-            value={form.ciudad}
-            onChange={(e) => onChange("ciudad", e.target.value)}
-          />
+          <UbicacionInput value={form.ciudad} onChange={(valor) => onChange("ciudad", valor)} />
         </label>
       </div>
 
