@@ -99,7 +99,7 @@ export default function Directorio({ tatuadores, estilos, ciudades }: Props) {
       </div>
 
       <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
-        <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
+        <aside className="space-y-6 lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:self-start lg:overflow-y-auto lg:pr-1">
           <section>
             <div className="mb-3 flex items-center justify-between">
               <h2 className="text-sm font-semibold uppercase tracking-wide text-tinta-300">
