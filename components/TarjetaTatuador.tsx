@@ -58,8 +58,14 @@ export default function TarjetaTatuador({ tatuador, tamano }: Props) {
 
         <div className="mt-auto flex items-end justify-between border-t border-tinta-800 pt-3">
           <div>
-            <p className="text-xs text-tinta-500">{etiquetaPrecio}</p>
-            <p className="font-semibold text-acento-suave">{formatearPrecio(precio)}</p>
+            {Number.isFinite(precio) ? (
+              <>
+                <p className="text-xs text-tinta-500">{etiquetaPrecio}</p>
+                <p className="font-semibold text-acento-suave">{formatearPrecio(precio)}</p>
+              </>
+            ) : (
+              <p className="text-sm text-tinta-500">Consultar precio</p>
+            )}
           </div>
           <span className="text-xs text-tinta-500 transition-colors group-hover:text-tinta-300">
             Ver perfil →

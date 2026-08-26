@@ -31,6 +31,7 @@ export default async function PerfilTatuador({ params }: Props) {
   if (!tatuador) notFound();
 
   const { contacto } = tatuador;
+  const precios = tatuador.precios.filter((p) => p.desde > 0 || p.hasta > 0);
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8">
@@ -71,36 +72,44 @@ export default async function PerfilTatuador({ params }: Props) {
           <Galeria trabajos={tatuador.trabajos} autor={tatuador.nombre} />
 
           <h2 className="mb-3 mt-10 text-lg font-semibold">Precios por tamaño</h2>
-          <div className="overflow-hidden rounded-2xl border border-tinta-800">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-tinta-900 text-xs uppercase tracking-wide text-tinta-500">
-                <tr>
-                  <th className="px-4 py-3 font-medium">Tamaño</th>
-                  <th className="px-4 py-3 font-medium">Precio</th>
-                </tr>
-              </thead>
-              <tbody>
-                {tatuador.precios.map((precio) => (
-                  <tr key={precio.tamano} className="border-t border-tinta-800">
-                    <td className="px-4 py-3">
-                      <div className="font-medium">{ETIQUETA_TAMANO[precio.tamano]}</div>
-                      <div className="text-xs text-tinta-500">
-                        {DETALLE_TAMANO[precio.tamano]}
-                      </div>
-                    </td>
-                    <td className="px-4 py-3 whitespace-nowrap text-acento-suave">
-                      {precio.desde === precio.hasta
-                        ? formatearPrecio(precio.desde)
-                        : `${formatearPrecio(precio.desde)} – ${formatearPrecio(precio.hasta)}`}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="mt-2 text-xs text-tinta-500">
-            Valores de referencia. El precio final depende del diseño, la zona y el detalle.
-          </p>
+          {precios.length === 0 ? (
+            <p className="text-sm text-tinta-500">
+              Todavía no cargó precios de referencia. Consultale directo por tu diseño.
+            </p>
+          ) : (
+            <>
+              <div className="overflow-hidden rounded-2xl border border-tinta-800">
+                <table className="w-full text-left text-sm">
+                  <thead className="bg-tinta-900 text-xs uppercase tracking-wide text-tinta-500">
+                    <tr>
+                      <th className="px-4 py-3 font-medium">Tamaño</th>
+                      <th className="px-4 py-3 font-medium">Precio</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {precios.map((precio) => (
+                      <tr key={precio.tamano} className="border-t border-tinta-800">
+                        <td className="px-4 py-3">
+                          <div className="font-medium">{ETIQUETA_TAMANO[precio.tamano]}</div>
+                          <div className="text-xs text-tinta-500">
+                            {DETALLE_TAMANO[precio.tamano]}
+                          </div>
+                        </td>
+                        <td className="px-4 py-3 whitespace-nowrap text-acento-suave">
+                          {precio.desde === precio.hasta
+                            ? formatearPrecio(precio.desde)
+                            : `${formatearPrecio(precio.desde)} – ${formatearPrecio(precio.hasta)}`}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-2 text-xs text-tinta-500">
+                Valores de referencia. El precio final depende del diseño, la zona y el detalle.
+              </p>
+            </>
+          )}
 
           {tatuador.promos.length > 0 && (
             <>

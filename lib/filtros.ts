@@ -39,15 +39,23 @@ function normalizar(texto: string): string {
     .trim();
 }
 
+/** Un precio en $0 y $0 significa que el tatuador todavía no lo cargó. */
+function precioCargado(p: { desde: number; hasta: number }): boolean {
+  return p.desde > 0 || p.hasta > 0;
+}
+
 /**
  * Precio de referencia del tatuador para el tamaño elegido.
  * Con "todos" se usa el precio más bajo de su lista.
+ * Si no cargó precio para ese tamaño, devuelve Infinity (queda afuera de los filtros de precio).
  */
 export function precioDesde(tatuador: Tatuador, tamano: Tamano | "todos"): number {
+  const precios = tatuador.precios.filter(precioCargado);
   if (tamano === "todos") {
-    return Math.min(...tatuador.precios.map((p) => p.desde));
+    if (precios.length === 0) return Number.POSITIVE_INFINITY;
+    return Math.min(...precios.map((p) => p.desde));
   }
-  const precio = tatuador.precios.find((p) => p.tamano === tamano);
+  const precio = precios.find((p) => p.tamano === tamano);
   return precio ? precio.desde : Number.POSITIVE_INFINITY;
 }
 
